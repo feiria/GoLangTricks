@@ -7,3 +7,4 @@
 - [使用Option写出优美的结构体](https://github.com/feiria/GoLangTricks/blob/master/src/how_to_write_beautiful_constructors/demo.go)
 - [切片传参示例](https://github.com/feiria/GoLangTricks/blob/master/src/magic_slice/demo.go)
 - [利用返回值的命名进行初始化](https://github.com/feiria/GoLangTricks/blob/master/src/make_good_use_of_named_return_values/demo.go)
+- [使用读写锁提高性能](https://github.com/feiria/GoLangTricks/blob/master/src/use_rwlock_to_improve_performance/demo.go)
