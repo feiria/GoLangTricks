@@ -83,6 +83,45 @@ func UglyClose3() {
 	mc.SafeCloseByOnce()
 }
 
+// 通过sync.mutex关闭
+
+type MyChannel2 struct {
+	C      chan any
+	closed bool
+	mut    sync.Mutex
+}
+
+func NewMyChannel2(size int) *MyChannel2 {
+	return &MyChannel2{
+		C:      make(chan any, size),
+		closed: false,
+		mut:    sync.Mutex{},
+	}
+}
+
+func (c *MyChannel2) Close() {
+	c.mut.Lock()
+	defer c.mut.Unlock()
+
+	if !c.closed {
+		close(c.C)
+		c.closed = true
+	}
+}
+
+func (c *MyChannel2) IsClosed() bool {
+	c.mut.Lock()
+	defer c.mut.Unlock()
+	return c.closed
+}
+
+func UglyClose4() {
+	ch := NewMyChannel2(0)
+	ch.Close()
+	ch.Close()
+	fmt.Println(ch.IsClosed())
+}
+
 /**
 1) one sender, one receiver
 2) one sender, many receiver
@@ -94,7 +133,7 @@ func UglyClose3() {
 
 // 引入信号通道，在接收端关闭信号通道发送信号给发送端。注意dataCh没有显式关闭，由于没有任何goroutine引用dataCh，最后GC会自动回收
 
-func ElegantCloseForStage3() {
+func ElegantCloseForStage12() {
 	rand.Seed(time.Now().UnixNano())
 	const Max = 100
 	const NumberSenders = 10
@@ -130,7 +169,7 @@ func ElegantCloseForStage3() {
 
 // 对于情况四，因为有多个receiver，采用stage3会多次关闭同一个channel，导致panic
 
-func ElegantCloseForStage4() {
+func ElegantCloseForStage34() {
 	rand.Seed(time.Now().UnixNano())
 	const Max = 100
 	const NumberSenders = 10
@@ -190,15 +229,11 @@ func ElegantCloseForStage4() {
 	}
 }
 
-func MoreElegantCloseByContext() {
-
-}
-
 func main() {
 	UglyClose()
 	UglyClose2()
 	UglyClose3()
-	ElegantCloseForStage3()
-	ElegantCloseForStage4()
-	MoreElegantCloseByContext()
+	UglyClose4()
+	ElegantCloseForStage12()
+	ElegantCloseForStage34()
 }
