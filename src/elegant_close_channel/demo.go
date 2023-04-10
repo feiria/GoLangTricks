@@ -133,10 +133,12 @@ func UglyClose4() {
 
 // 引入信号通道，在接收端关闭信号通道发送信号给发送端。注意dataCh没有显式关闭，由于没有任何goroutine引用dataCh，最后GC会自动回收
 
-func ElegantCloseForStage12() {
+func ElegantCloseForStage3() {
 	rand.Seed(time.Now().UnixNano())
 	const Max = 100
 	const NumberSenders = 10
+
+	wg := sync.WaitGroup{}
 
 	dataCh := make(chan int, 100)
 	stopCh := make(chan struct{})
@@ -144,6 +146,8 @@ func ElegantCloseForStage12() {
 	// senders
 	for i := 0; i < NumberSenders; i++ {
 		go func() {
+			wg.Add(1)
+			defer wg.Done()
 			for {
 				select {
 				case <-stopCh:
@@ -165,11 +169,13 @@ func ElegantCloseForStage12() {
 			fmt.Println(i)
 		}
 	}()
+
+	wg.Wait()
 }
 
 // 对于情况四，因为有多个receiver，采用stage3会多次关闭同一个channel，导致panic
 
-func ElegantCloseForStage34() {
+func ElegantCloseForStage4() {
 	rand.Seed(time.Now().UnixNano())
 	const Max = 100
 	const NumberSenders = 10
@@ -180,6 +186,9 @@ func ElegantCloseForStage34() {
 
 	toStop := make(chan string, 1)
 	var stoppedBy string
+
+	wg := sync.WaitGroup{}
+	wg.Add(NumberReceivers)
 
 	go func() {
 		stoppedBy = <-toStop
@@ -210,6 +219,7 @@ func ElegantCloseForStage34() {
 	// receivers
 	for i := 0; i < NumberReceivers; i++ {
 		go func(id string) {
+			defer wg.Done()
 			for {
 				select {
 				case <-stopCh:
@@ -227,6 +237,8 @@ func ElegantCloseForStage34() {
 			}
 		}(strconv.Itoa(i))
 	}
+
+	wg.Wait()
 }
 
 func main() {
@@ -234,6 +246,6 @@ func main() {
 	UglyClose2()
 	UglyClose3()
 	UglyClose4()
-	ElegantCloseForStage12()
-	ElegantCloseForStage34()
+	ElegantCloseForStage3()
+	ElegantCloseForStage4()
 }
