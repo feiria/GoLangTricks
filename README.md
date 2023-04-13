@@ -8,4 +8,5 @@
 - [切片传参示例](https://github.com/feiria/GoLangTricks/blob/master/src/magic_slice/demo.go)
 - [利用返回值的命名进行初始化](https://github.com/feiria/GoLangTricks/blob/master/src/make_good_use_of_named_return_values/demo.go)
 - [使用context实现定时取消](https://github.com/feiria/GoLangTricks/blob/master/src/use_context_implement_timed_cancel/demo.go)
+- [使用context防止goroutine泄漏](https://github.com/feiria/GoLangTricks/blob/master/src/use_context_prevent_goroutine_leaks/demo.go)
 - [使用读写锁提高性能](https://github.com/feiria/GoLangTricks/blob/master/src/use_rwlock_to_improve_performance/demo.go)
