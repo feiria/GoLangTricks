@@ -1,6 +1,7 @@
 # GoLangTricks
 ---
 - [使用责任链逃离if-else地狱](https://github.com/feiria/GoLangTricks/blob/master/src/chain_of_responsibility_takes_you_out_ofif_hell/demo.go)
+- [新手常见的10个错误](https://github.com/feiria/GoLangTricks/blob/master/src/common_mistakes_for_newbies/demo.go)
 - [defer示例](https://github.com/feiria/GoLangTricks/blob/master/src/dismantle_defer/demo.go)
 - [优雅关闭通道](https://github.com/feiria/GoLangTricks/blob/master/src/elegant_close_channel/demo.go)
 - [5个json小技巧](https://github.com/feiria/GoLangTricks/blob/master/src/five_super_useful_json_tips/demo.go)
