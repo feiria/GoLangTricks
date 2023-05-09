@@ -11,3 +11,4 @@
 - [使用context实现定时取消](https://github.com/feiria/GoLangTricks/blob/master/src/use_context_implement_timed_cancel/demo.go)
 - [使用context防止goroutine泄漏](https://github.com/feiria/GoLangTricks/blob/master/src/use_context_prevent_goroutine_leaks/demo.go)
 - [使用读写锁提高性能](https://github.com/feiria/GoLangTricks/blob/master/src/use_rwlock_to_improve_performance/demo.go)
+- [使用wire实现依赖注入](https://github.com/feiria/GoLangTricks/blob/master/src/wire_example/)
