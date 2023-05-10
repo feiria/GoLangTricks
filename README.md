@@ -12,3 +12,4 @@
 - [使用context防止goroutine泄漏](https://github.com/feiria/GoLangTricks/blob/master/src/use_context_prevent_goroutine_leaks/demo.go)
 - [使用读写锁提高性能](https://github.com/feiria/GoLangTricks/blob/master/src/use_rwlock_to_improve_performance/demo.go)
 - [使用wire实现依赖注入](https://github.com/feiria/GoLangTricks/blob/master/src/wire_example/)
+- [字符串和byte切片的零复制转换](https://github.com/feiria/GoLangTricks/blob/master/src/zero_copy_between_string_and_bytes/demo.go)
